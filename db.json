@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "id": "a4f8c421-f215-4e35-bd65-192becf8a4ec",
+      "title": "iphone 1 ",
+      "description": "iphone 1 Description ",
+      "price": "1000"
+    },
+    {
+      "id": "ece295a6-fed0-4659-9fe2-23750ca1f360",
+      "title": "iphone 2 ",
+      "description": "iphone 2 D",
+      "price": "2000"
+    }
+  ]
+}
