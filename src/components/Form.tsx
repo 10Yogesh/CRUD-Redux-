@@ -1,68 +1,77 @@
-import { Box, Button } from "@chakra-ui/react";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import CommonInput from "./CommonInput";
+import { Box, Button } from "@chakra-ui/react";
 
-interface Product {
+interface FormValues {
   title: string;
   description: string;
   price: string;
 }
 
 interface FormProps {
-  onSubmit: SubmitHandler<Product>;
-  initialValue: Product;
+  onSubmit: SubmitHandler<FormValues>;
 }
 
-const Form: React.FC<FormProps> = ({ onSubmit, initialValue }) => {
+function Form({ onSubmit }: FormProps) {
   const {
-    register,
     handleSubmit,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm<Product>({
-    defaultValues: {},
-  });
-
-  React.useEffect(() => {
-    if (initialValue) {
-      setValue("title", initialValue.title || "");
-      setValue("description", initialValue.description || "");
-      setValue("price", initialValue.price || "");
-    }
-  }, [initialValue, setValue]);
+    control,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        control={control}
+        name="title"
+        render={({ field: { onChange, value } }) => (
           <CommonInput
-            register={register}
+            onChange={onChange}
             name="title"
             placeholder="Product Title"
-            errorMessage={errors.title?.message}
+            value={value}
           />
-          <CommonInput
-            register={register}
-            name="description"
-            placeholder="Product description"
-            errorMessage={errors.title?.message}
-          />
-          <CommonInput
-            register={register}
-            name="price"
-            placeholder="Product price"
-            errorMessage={errors.title?.message}
-          />
+        )}
+      />
 
-          <Button disabled={isSubmitting} type="submit">
-            Submit
-          </Button>
-          {isSubmitting ? "Loading..." : ""}
-        </Box>
-      </form>
-    </>
+      <Controller
+        control={control}
+        name="description"
+        render={({ field: { onChange, value } }) => (
+          <CommonInput
+            onChange={onChange}
+            name="description"
+            placeholder="Product Description"
+            value={value}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="price"
+        render={({ field: { onChange, value } }) => (
+          <CommonInput
+            onChange={onChange}
+            name="price"
+            placeholder="Product Price"
+            value={value}
+          />
+        )}
+      />
+
+      <Button
+        disabled={isSubmitting}
+        type="submit"
+        colorScheme="green"
+        mt="5px"
+        size="md"
+      >
+        Submit
+      </Button>
+      {isSubmitting ? "Loading..." : ""}
+    </form>
   );
-};
+}
 
 export default Form;

@@ -6,6 +6,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { SubmitHandler } from "react-hook-form";
 
+interface FormField {
+  ProductTitle: string;
+  ProductDescription: string;
+  ProductPrice: string;
+}
+
 const AddProduct = () => {
   const queryClient = useQueryClient();
 
@@ -17,7 +23,7 @@ const AddProduct = () => {
     },
   });
 
-  const handleAddProduct: SubmitHandler<Product> = (product) => {
+  const handleAddProduct: SubmitHandler<FormField> = (product) => {
     createPostMutation.mutate({
       id: uuidv4(),
       ...product,

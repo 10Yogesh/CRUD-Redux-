@@ -1,24 +1,23 @@
 import { Box, Input } from "@chakra-ui/react";
 import React from "react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface CommonInputProps {
-  register: UseFormRegister<FieldValues>;
+  onChange: (value: string) => void;
   name: string;
   placeholder: string;
   errorMessage?: string;
 }
 
 const CommonInput: React.FC<CommonInputProps> = ({
-  register,
-  name,
+  onChange,
   placeholder,
   errorMessage,
 }) => {
   return (
     <>
       <Input
-        {...register(name, { required: `${placeholder} is required` })}
+        isRequired
+        onChange={(e) => onChange(e.target.value)}
         type="text"
         placeholder={placeholder}
       />
