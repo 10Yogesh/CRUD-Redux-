@@ -1,44 +1,36 @@
-import { useForm } from "react-hook-form";
-import CommonInput from "./CommonInput";
-import { SubmitHandler } from "react-hook-form";
+import { Input, Box } from "@chakra-ui/react";
 import React from "react";
-import CommonDatePicker from "./CommonDatePicker";
-
-type FormValues = {
-  title: string;
-  description: string;
-  price: string;
+import { Controller } from "react-hook-form";
+type CommonInputProps = {
+  control: any;
+  name: string;
+  placeholder: string;
+  errorMessage?: string;
 };
 
-interface FormProps {
-  onSubmit: SubmitHandler<FormValues>;
-  initialValue: FormValues;
-}
+const CommonInput: React.FC<CommonInputProps> = ({
+  control,
+  name,
+  placeholder,
+  errorMessage,
+}) => (
+  <>
+    <Controller
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <>
+          <Input
+            onChange={(e) => field.onChange(e.target.value)}
+            value={field.value}
+            type="text"
+            placeholder={placeholder}
+          />
+          {errorMessage && <Box color="red">{errorMessage}</Box>}
+        </>
+      )}
+    />
+  </>
+);
 
-function Form({ onSubmit, initialValue }: FormProps) {
-  const { handleSubmit, control, setValue } = useForm<FormValues>();
-
-  React.useEffect(() => {
-    if (initialValue) {
-      setValue("title", initialValue.title || "");
-      setValue("description", initialValue.description || "");
-      setValue("price", initialValue.price || "");
-    }
-  }, [initialValue, setValue]);
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <CommonInput control={control} name="title" placeholder="Product Title" />
-      <CommonInput
-        control={control}
-        name="description"
-        placeholder="Product Description"
-      />
-      <CommonInput control={control} name="price" placeholder="Product Price" />
-      <CommonDatePicker />
-      <input type="submit" />
-    </form>
-  );
-}
-
-export default Form;
+export default CommonInput;

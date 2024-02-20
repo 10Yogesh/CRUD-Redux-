@@ -5,6 +5,12 @@
       "title": "mac",
       "description": "mac",
       "price": "200"
+    },
+    {
+      "id": "7bc37d28-7846-4b72-9e4b-623e2b2b4dbd",
+      "title": "IPHONE",
+      "description": "iphone 13",
+      "price": "40000"
     }
   ]
 }
