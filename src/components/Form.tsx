@@ -3,6 +3,7 @@ import CommonInput from "./CommonInput";
 import { SubmitHandler } from "react-hook-form";
 import React from "react";
 import CommonDatePicker from "./CommonDatePicker";
+import { Button } from "@chakra-ui/react";
 
 type FormValues = {
   title: string;
@@ -16,7 +17,12 @@ interface FormProps {
 }
 
 function Form({ onSubmit, initialValue }: FormProps) {
-  const { handleSubmit, control, setValue } = useForm<FormValues>();
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
 
   React.useEffect(() => {
     if (initialValue) {
@@ -36,7 +42,10 @@ function Form({ onSubmit, initialValue }: FormProps) {
       />
       <CommonInput control={control} name="price" placeholder="Product Price" />
       <CommonDatePicker />
-      <input type="submit" />
+      <Button disabled={isSubmitting} type="submit">
+        Submit
+      </Button>
+      {isSubmitting ? "Loading..." : ""}
     </form>
   );
 }
