@@ -1,75 +1,42 @@
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import CommonInput from "./CommonInput";
-import { Box, Button } from "@chakra-ui/react";
+import { SubmitHandler } from "react-hook-form";
+import React from "react";
+import CommonDatePicker from "./CommonDatePicker";
 
-interface FormValues {
+type FormValues = {
   title: string;
   description: string;
   price: string;
-}
+};
 
 interface FormProps {
   onSubmit: SubmitHandler<FormValues>;
+  initialValue: FormValues;
 }
 
-function Form({ onSubmit }: FormProps) {
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-  } = useForm<FormValues>();
+function Form({ onSubmit, initialValue }: FormProps) {
+  const { handleSubmit, control, setValue } = useForm<FormValues>();
+
+  React.useEffect(() => {
+    if (initialValue) {
+      setValue("title", initialValue.title || "");
+      setValue("description", initialValue.description || "");
+      setValue("price", initialValue.price || "");
+    }
+  }, [initialValue, setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        control={control}
-        name="title"
-        render={({ field: { onChange, value } }) => (
-          <CommonInput
-            onChange={onChange}
-            name="title"
-            placeholder="Product Title"
-            value={value}
-          />
-        )}
-      />
-
-      <Controller
+      <CommonInput control={control} name="title" placeholder="Product Title" />
+      <CommonInput
         control={control}
         name="description"
-        render={({ field: { onChange, value } }) => (
-          <CommonInput
-            onChange={onChange}
-            name="description"
-            placeholder="Product Description"
-            value={value}
-          />
-        )}
+        placeholder="Product Description"
       />
-
-      <Controller
-        control={control}
-        name="price"
-        render={({ field: { onChange, value } }) => (
-          <CommonInput
-            onChange={onChange}
-            name="price"
-            placeholder="Product Price"
-            value={value}
-          />
-        )}
-      />
-
-      <Button
-        disabled={isSubmitting}
-        type="submit"
-        colorScheme="green"
-        mt="5px"
-        size="md"
-      >
-        Submit
-      </Button>
-      {isSubmitting ? "Loading..." : ""}
+      <CommonInput control={control} name="price" placeholder="Product Price" />
+      <CommonDatePicker />
+      <input type="submit" />
     </form>
   );
 }

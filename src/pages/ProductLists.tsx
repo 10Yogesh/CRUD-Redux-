@@ -16,12 +16,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteProduct, fetchProducts } from "../api/products";
 import { useNavigate } from "react-router-dom";
 
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-}
-
 const ProductLists = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -47,6 +41,7 @@ const ProductLists = () => {
 
   const handleDelete = (id) => {
     deleteProductMutation.mutate(id);
+    console.log("First");
   };
 
   return (
