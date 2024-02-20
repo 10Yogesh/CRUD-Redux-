@@ -1,6 +1,7 @@
 import { Input, Box } from "@chakra-ui/react";
 import React from "react";
 import { Controller } from "react-hook-form";
+
 type CommonInputProps = {
   control: any;
   name: string;
@@ -26,6 +27,7 @@ const CommonInput: React.FC<CommonInputProps> = ({
             type="text"
             placeholder={placeholder}
           />
+
           {errorMessage && <Box color="red">{errorMessage}</Box>}
         </>
       )}

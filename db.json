@@ -3,7 +3,7 @@
     {
       "id": "f1070ac1-51f7-4d11-8660-fc0a88f4328d",
       "title": "mac",
-      "description": "mac",
+      "description": "macbook m2",
       "price": "200"
     },
     {
@@ -11,6 +11,13 @@
       "title": "IPHONE",
       "description": "iphone 13",
       "price": "40000"
+    },
+    {
+      "id": "b3d4e1b8-490b-4deb-ad14-1bcb1975a0d2",
+      "title": "airpods",
+      "description": "airpods zen 2",
+      "price": "200"
     }
+    
   ]
 }

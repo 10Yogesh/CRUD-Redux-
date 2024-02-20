@@ -5,18 +5,18 @@ import React from "react";
 import CommonDatePicker from "./CommonDatePicker";
 import { Button } from "@chakra-ui/react";
 
-type FormValues = {
+interface FormValues {
   title: string;
   description: string;
   price: string;
-};
+}
 
 interface FormProps {
   onSubmit: SubmitHandler<FormValues>;
   initialValue: FormValues;
 }
 
-function Form({ onSubmit, initialValue }: FormProps) {
+const Form = ({ onSubmit, initialValue }: FormProps) => {
   const {
     handleSubmit,
     control,
@@ -41,13 +41,13 @@ function Form({ onSubmit, initialValue }: FormProps) {
         placeholder="Product Description"
       />
       <CommonInput control={control} name="price" placeholder="Product Price" />
-      <CommonDatePicker />
+      {/* <CommonDatePicker /> */}
       <Button disabled={isSubmitting} type="submit">
         Submit
       </Button>
-      {isSubmitting ? "Loading..." : ""}
+      {isSubmitting ? "Submitting..." : ""}
     </form>
   );
-}
+};
 
 export default Form;
